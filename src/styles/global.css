@@ -746,3 +746,113 @@ main {
   .modal { padding: 22px; }
   .summary-status { width: 100%; }
 }
+
+/* ── Clasificación table (5 columns) ─────────────────────── */
+.rank-row--5col {
+  grid-template-columns: 50px 1fr 80px 100px 1fr;
+}
+@media (max-width: 600px) {
+  .rank-row--5col {
+    grid-template-columns: 40px 1fr 60px;
+  }
+  .rank-row--5col .rank-telegram,
+  .rank-row--5col .rank-flags {
+    display: none;
+  }
+}
+
+/* ── Equipos table ────────────────────────────────────────── */
+.equipos-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.equipos-table th,
+.equipos-table td {
+  padding: 8px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--c-border);
+}
+.equipos-table th:first-child,
+.equipos-table td:first-child {
+  text-align: left;
+}
+.equipos-table thead th {
+  font-size: 12px;
+  color: var(--c-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.equipos-table tbody tr:hover {
+  background: var(--c-surface);
+}
+.equipo-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Partidos ─────────────────────────────────────────────── */
+.partidos-phase {
+  margin-bottom: 32px;
+}
+.partidos-phase-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-muted);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--c-border);
+}
+.partido-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.partido-home {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 14px;
+}
+.partido-away {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+.partido-score {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.partido-score--live {
+  color: var(--c-red, #e53e3e);
+}
+
+/* ── Participant detail modal ─────────────────────────────── */
+.equipo-score-grid {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  gap: 4px 12px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+.equipo-score-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.equipo-score-pts {
+  text-align: right;
+  font-weight: 600;
+}
