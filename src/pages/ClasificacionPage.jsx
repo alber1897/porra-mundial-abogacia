@@ -63,7 +63,7 @@ export default function ClasificacionPage() {
           </div>
 
           <div className="rank-table" role="table" aria-label="Clasificación">
-            <div className="rank-row rank-row--5col rank-header" role="row" aria-rowindex={1}>
+            <div className={['rank-row', 'rank-row--5col', 'rank-header'].join(' ')} role="row" aria-rowindex={1}>
               <span className="rank-pos">Pos</span>
               <span className="rank-name">Nombre</span>
               <span className="rank-pts">Pts</span>
