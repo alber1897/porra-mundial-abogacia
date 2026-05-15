@@ -1,0 +1,46 @@
+import { useState, useCallback, useEffect } from 'react';
+import { parseParticipantes, parseResultados } from '../lib/normalizeSheetData';
+
+const SPREADSHEET_ID = import.meta.env.VITE_SPREADSHEET_ID;
+const API_KEY = import.meta.env.VITE_SHEETS_API_KEY;
+
+export function useSheetData() {
+  const [participantes, setParticipantes] = useState([]);
+  const [resultados, setResultados] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const refresh = useCallback(async () => {
+    if (!SPREADSHEET_ID || !API_KEY) {
+      setError('Configura VITE_SPREADSHEET_ID y VITE_SHEETS_API_KEY en .env.local');
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const url = new URL(
+        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values:batchGet`
+      );
+      url.searchParams.set('ranges', 'Respuestas!A:P');
+      url.searchParams.append('ranges', 'Resultados!A:H');
+      url.searchParams.set('key', API_KEY);
+
+      const res = await fetch(url.toString());
+      if (!res.ok) throw new Error(`Sheets API: HTTP ${res.status}`);
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+
+      const [resp, result] = data.valueRanges;
+      setParticipantes(parseParticipantes(resp.values || []));
+      setResultados(parseResultados(result.values || []));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { refresh(); }, [refresh]);
+
+  return { participantes, resultados, loading, error, refresh };
+}
