@@ -17,6 +17,9 @@ export function useSheetData() {
     }
     setLoading(true);
     setError(null);
+
+    const controller = new AbortController();
+
     try {
       const url = new URL(
         `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values:batchGet`
@@ -25,7 +28,7 @@ export function useSheetData() {
       url.searchParams.append('ranges', 'Resultados!A:H');
       url.searchParams.set('key', API_KEY);
 
-      const res = await fetch(url.toString());
+      const res = await fetch(url.toString(), { signal: controller.signal });
       if (!res.ok) throw new Error(`Sheets API: HTTP ${res.status}`);
       const data = await res.json();
       if (data.error) throw new Error(data.error.message);
@@ -34,7 +37,9 @@ export function useSheetData() {
       setParticipantes(parseParticipantes(resp.values || []));
       setResultados(parseResultados(result.values || []));
     } catch (err) {
-      setError(err.message);
+      if (err.name !== 'AbortError') {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
