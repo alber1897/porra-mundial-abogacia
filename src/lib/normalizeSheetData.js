@@ -9,9 +9,9 @@ export function parseParticipantes(rows) {
 
   const raw = rows.slice(1).map(row => ({
     timestamp: row[0] || '',
-    nombre: (row[1] || '').trim(),
-    telegram: (row[2] || '').replace(/^@/, '').toLowerCase().trim(),
-    equipos: row.slice(3, 16).map(normalizeName).filter(Boolean),
+    nombre: (row[2] || '').trim(),
+    telegram: (row[3] || '').replace(/^@/, '').toLowerCase().trim(),
+    equipos: row.slice(4, 17).map(normalizeName).filter(Boolean),
   })).filter(e => e.nombre);
 
   raw.sort((a, b) => (b.timestamp > a.timestamp ? 1 : b.timestamp < a.timestamp ? -1 : 0));

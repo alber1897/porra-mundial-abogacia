@@ -24,7 +24,7 @@ export function useSheetData() {
       const url = new URL(
         `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values:batchGet`
       );
-      url.searchParams.set('ranges', 'Respuestas!A:P');
+      url.searchParams.set('ranges', "'Respuestas de formulario 1'!A:Q");
       url.searchParams.append('ranges', 'Resultados!A:H');
       url.searchParams.set('key', API_KEY);
 
