@@ -23,9 +23,9 @@ function pad(n) {
 }
 
 const TABS = [
-  { to: '/',          label: 'Mi apuesta',  icon: '🎯' },
-  { to: '/ranking',   label: 'Ranking',     icon: '🏆' },
-  { to: '/calendario', label: 'Calendario', icon: '📅' },
+  { to: '/',         label: 'Clasificación', icon: '🏆' },
+  { to: '/equipos',  label: 'Equipos',       icon: '🌍' },
+  { to: '/partidos', label: 'Partidos',       icon: '📅' },
 ];
 
 export default function Header() {
