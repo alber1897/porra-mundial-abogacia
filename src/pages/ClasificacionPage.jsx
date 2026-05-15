@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { useSheetData } from '../hooks/useSheetData';
 import { calcClasificacion } from '../lib/scoring';
 import { GRUPOS, isoToFlag } from '../data/paises';
@@ -17,13 +17,13 @@ function ParticipantModal({ entry, onClose }) {
         {entry.telegram && <p style={{ color: 'var(--c-muted)', fontSize: 13 }}>@{entry.telegram}</p>}
         <div className="equipo-score-grid">
           {entry.equipoScores.map(s => (
-            <>
-              <div key={`${s.equipo}-name`} className="equipo-score-name">
+            <Fragment key={s.equipo}>
+              <div className="equipo-score-name">
                 <span>{flag(s.equipo)}</span>
                 <span>{s.equipo}</span>
               </div>
-              <div key={`${s.equipo}-pts`} className="equipo-score-pts">{s.pts} pts</div>
-            </>
+              <div className="equipo-score-pts">{s.pts} pts</div>
+            </Fragment>
           ))}
         </div>
         <p style={{ marginTop: 16, fontWeight: 700, fontSize: 16 }}>Total: {entry.total} pts</p>
@@ -76,7 +76,7 @@ export default function ClasificacionPage() {
               return (
                 <div
                   key={entry.nombre}
-                  className={`rank-row rank-row--5col${topClass ? ` ${topClass}` : ''}`}
+                  className={['rank-row', 'rank-row--5col', topClass].filter(Boolean).join(' ')}
                   role="row"
                   aria-rowindex={pos + 1}
                   style={{ cursor: 'pointer' }}
