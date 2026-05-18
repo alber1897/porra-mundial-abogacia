@@ -1,5 +1,7 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { parseParticipantes, parseResultados } from '../lib/normalizeSheetData';
+
+const LIVE_POLL_INTERVAL = 60_000; // 1 min mientras hay partidos en vivo
 
 const SPREADSHEET_ID = import.meta.env.VITE_SPREADSHEET_ID;
 const API_KEY = import.meta.env.VITE_SHEETS_API_KEY;
@@ -9,6 +11,7 @@ export function useSheetData() {
   const [resultados, setResultados] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const pollRef = useRef(null);
 
   const refresh = useCallback(async () => {
     if (!SPREADSHEET_ID || !API_KEY) {
@@ -46,6 +49,16 @@ export function useSheetData() {
   }, []);
 
   useEffect(() => { refresh(); }, [refresh]);
+
+  // Polling automático cuando hay partidos en vivo
+  useEffect(() => {
+    const hasLive = resultados.some(m => m.status === 'LIVE');
+    clearInterval(pollRef.current);
+    if (hasLive) {
+      pollRef.current = setInterval(refresh, LIVE_POLL_INTERVAL);
+    }
+    return () => clearInterval(pollRef.current);
+  }, [resultados, refresh]);
 
   return { participantes, resultados, loading, error, refresh };
 }
