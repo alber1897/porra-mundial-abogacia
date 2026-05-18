@@ -5,9 +5,11 @@ const TODOS_LOS_PAISES = GRUPOS.flatMap(g => g.paises);
 const teamToFlag = new Map(TODOS_LOS_PAISES.map(p => [p.nombre, isoToFlag(p.iso)]));
 function flag(team) { return team ? (teamToFlag.get(team) || '🏳') : null; }
 
-const PHASE_ORDER = ['group', 'r32', 'r16', 'qf', 'sf', '3rd', 'final'];
+const PHASE_ORDER = ['group', 'r32', 'last_32', 'r16', 'last_16', 'qf', 'sf', '3rd', 'final'];
 const PHASE_LABELS = {
-  group: 'Fase de grupos', r32: 'Dieciseisavos de final', r16: 'Octavos de final',
+  group: 'Fase de grupos',
+  r32: 'Dieciseisavos de final', last_32: 'Dieciseisavos de final',
+  r16: 'Octavos de final', last_16: 'Octavos de final',
   qf: 'Cuartos de final', sf: 'Semifinales', '3rd': 'Tercer puesto', final: 'Final',
 };
 const STATUS_BADGE = { AET: 'AET', PEN: 'PEN', LIVE: 'en vivo' };

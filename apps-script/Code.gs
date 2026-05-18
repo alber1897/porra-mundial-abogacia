@@ -22,10 +22,10 @@ var TEAM_NAME_MAP = {
 
 var STAGE_MAP = {
   'GROUP_STAGE': 'group',
-  'ROUND_OF_32': 'r32',
-  'ROUND_OF_16': 'r16',
-  'QUARTER_FINALS': 'qf',
-  'SEMI_FINALS': 'sf',
+  'ROUND_OF_32': 'r32', 'LAST_32': 'r32',
+  'ROUND_OF_16': 'r16', 'LAST_16': 'r16',
+  'QUARTER_FINALS': 'qf', 'LAST_8': 'qf',
+  'SEMI_FINALS': 'sf', 'LAST_4': 'sf',
   'THIRD_PLACE': '3rd',
   'FINAL': 'final',
 };

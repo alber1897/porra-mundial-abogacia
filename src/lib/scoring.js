@@ -1,8 +1,8 @@
-const PHASE_POINTS = { r32: 1, r16: 2, qf: 3, sf: 4, '3rd': 5, final: 5 };
-const PHASE_ORDER = ['final', '3rd', 'sf', 'qf', 'r16', 'r32', 'group'];
+const PHASE_POINTS = { r32: 1, last_32: 1, r16: 2, last_16: 2, qf: 3, sf: 4, '3rd': 5, final: 5 };
+const PHASE_ORDER = ['final', '3rd', 'sf', 'qf', 'r16', 'last_16', 'r32', 'last_32', 'group'];
 const PHASE_LABELS = {
-  group: 'Grupos', r32: '1/16', r16: 'Octavos', qf: 'Cuartos',
-  sf: 'Semis', '3rd': '3er puesto', final: 'Final',
+  group: 'Grupos', r32: '1/16', last_32: '1/16', r16: 'Octavos', last_16: 'Octavos',
+  qf: 'Cuartos', sf: 'Semis', '3rd': '3er puesto', final: 'Final',
 };
 
 export function calcTeamStats(team, resultados) {
