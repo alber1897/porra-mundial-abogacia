@@ -12,11 +12,10 @@ function flag(team) {
   const iso = teamToIsoExact.get(team) ?? teamToIsoNorm.get(normKey(team));
   if (!iso) console.warn('[porra] no flag ISO for team:', JSON.stringify(team));
   return iso
-    ? <img src={isoToFlagUrl(iso)} alt={team} width={20} height={15} style={{ verticalAlign: 'middle' }}
-        onError={e => { e.target.style.display = 'none'; console.warn('[porra] flag img failed:', isoToFlagUrl(iso)); }}
-      />
-    : null;
+    ? <img src={isoToFlagUrl(iso)} alt={team} width={20} height={15} style={{ verticalAlign: 'middle' }} />
+    : '🏳';
 }
+
 
 const TOP_CLASS = { 1: 'top1', 2: 'top2', 3: 'top3' };
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
@@ -31,7 +30,7 @@ function ParticipantModal({ entry, onClose }) {
           {entry.equipoScores.map(s => (
             <Fragment key={s.equipo}>
               <div className="equipo-score-name">
-                <span>{flag(s.equipo)}</span>
+                {/* <span>{flag(s.equipo)}</span> */}
                 <span>{s.equipo}</span>
               </div>
               <div className="equipo-score-pts">{s.pts} pts</div>
